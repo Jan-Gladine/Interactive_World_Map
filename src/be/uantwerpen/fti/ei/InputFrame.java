@@ -3,12 +3,15 @@ package be.uantwerpen.fti.ei;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class InputFrame extends JFrame {
     private JLabel txtLabel;
     private JTextField textField1;
     private JButton enterButton;
     private JPanel Panel;
+    private JComboBox comboBox1;
     private String output;
 
     public InputFrame(){
@@ -20,6 +23,12 @@ public class InputFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 output = textField1.getText();
+            }
+        });
+        enterButton.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
             }
         });
     }
