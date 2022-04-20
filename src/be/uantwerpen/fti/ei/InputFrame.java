@@ -12,7 +12,8 @@ public class InputFrame extends JFrame {
     private JButton enterButton;
     private JPanel Panel;
     private JComboBox comboBox1;
-    private String output;
+    private String output1;
+    private String output2;
 
     public InputFrame(){
         setContentPane(Panel);
@@ -22,9 +23,16 @@ public class InputFrame extends JFrame {
         enterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                output = textField1.getText();
+                output1 = textField1.getText();
             }
         });
+        comboBox1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                output2 = comboBox1.getSelectedItem().toString();
+            }
+        });
+
         enterButton.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -33,7 +41,10 @@ public class InputFrame extends JFrame {
         });
     }
 
-    public String getOutput() {
-        return output;
+    public String getOutput1() {
+        return output1;
+    }
+    public String getOutput2(){
+        return output2;
     }
 }

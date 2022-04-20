@@ -11,12 +11,12 @@ public class Main {
         DisplayFrame display = new DisplayFrame();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
-        //gs[0].setFullScreenWindow(input);
-        //gs[1].setFullScreenWindow(display);
+        gs[0].setFullScreenWindow(input);
+        gs[1].setFullScreenWindow(display);
         IOReader map = new IOReader("Map1.csv");
         while (true){
             for(Student student :map.getStudents()){
-                if(Objects.equals(input.getOutput(), student.getName())){
+                if(Objects.equals(input.getOutput1(), student.getName())){
                     display.setInput(student.getUniversity());
                 }
             }

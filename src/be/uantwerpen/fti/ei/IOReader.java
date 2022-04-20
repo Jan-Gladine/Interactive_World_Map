@@ -19,7 +19,7 @@ public class IOReader {
         String[] data;
         for(String line:lines){
             data = line.split(";");
-            this.students.add(new Student(data[4], data[1], new String[]{data[2], data[3]}));
+            this.students.add(new Student(data[4], data[1], new String[]{data[2], data[3]}, data[6]));
         }
     }
 
