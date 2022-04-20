@@ -2,6 +2,7 @@ package be.uantwerpen.fti.ei;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 public class Main {
 
@@ -12,9 +13,14 @@ public class Main {
         GraphicsDevice[] gs = ge.getScreenDevices();
         //gs[0].setFullScreenWindow(input);
         //gs[1].setFullScreenWindow(display);
-        IOReader map = new IOReader("C:\\Users\\Jan\\IdeaProjects\\Interactive_World_Map\\src\\Map1.csv");
+        IOReader map = new IOReader("Map1.csv");
         while (true){
-            display.setInput(input.getOutput());
+            for(Student student :map.getStudents()){
+                if(Objects.equals(input.getOutput(), student.getName())){
+                    display.setInput(student.getUniversity());
+                }
+            }
+
         }
     }
 }
