@@ -7,20 +7,24 @@ import java.util.Objects;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-	    InputFrame input = new InputFrame();
-        DisplayFrame display = new DisplayFrame();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
+        InputFrame input = new InputFrame();
+        DisplayFrame display = new DisplayFrame();
+        Map mapFrame = new Map(1920,1080);
+        mapFrame.grCtx.setGameDimensions(1920,1080);
         gs[0].setFullScreenWindow(input);
-        gs[1].setFullScreenWindow(display);
+        //gs[1].setFullScreenWindow(mapFrame);
         IOReader map = new IOReader("Map1.csv");
         while (true){
+            StringBuilder outputString = new StringBuilder();
             for(Student student :map.getStudents()){
-                if(Objects.equals(input.getOutput1(), student.getName())){
-                    display.setInput(student.getUniversity());
+                if (Objects.equals(input.getOutput2(), student.getCourse())){
+                    mapFrame.setPin(student.getCoordinates()[0], student.getCoordinates()[1]);
                 }
             }
-
+            mapFrame.render();
+            display.setInput(String.valueOf(outputString));
         }
     }
 }

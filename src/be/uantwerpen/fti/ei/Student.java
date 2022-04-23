@@ -1,6 +1,6 @@
 package be.uantwerpen.fti.ei;
 
-public record Student(String name, String university, String[] coordinates, String course) {
+public record Student(String name, String university, Double[] coordinates, String course) {
 
     public String getName() {
         return name;
@@ -10,11 +10,11 @@ public record Student(String name, String university, String[] coordinates, Stri
         return university;
     }
 
-    public String[] getCoordinates() {
+    public Double[] getCoordinates() {
         return coordinates;
     }
 
-    public String course() {
+    public String getCourse() {
         return course;
     }
 }

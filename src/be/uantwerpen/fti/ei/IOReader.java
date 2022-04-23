@@ -17,9 +17,10 @@ public class IOReader {
         }
         sc.close();
         String[] data;
-        for(String line:lines){
+        for(int i = 1; i < lines.size(); i++){
+            String line = lines.get(i);
             data = line.split(";");
-            this.students.add(new Student(data[4], data[1], new String[]{data[2], data[3]}, data[6]));
+            this.students.add(new Student(data[4], data[1], new Double[]{Double.valueOf(data[2]), Double.valueOf(data[3])}, data[6]));
         }
     }
 

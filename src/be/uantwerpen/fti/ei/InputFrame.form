@@ -24,14 +24,6 @@
         </constraints>
         <properties/>
       </component>
-      <component id="e3088" class="javax.swing.JButton" binding="enterButton" default-binding="true">
-        <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Enter"/>
-        </properties>
-      </component>
       <vspacer id="7aba7">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
@@ -56,6 +48,14 @@
             <item value="EI"/>
             <item value="EM"/>
           </model>
+        </properties>
+      </component>
+      <component id="e3088" class="javax.swing.JButton" binding="enterButton" default-binding="true">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Enter"/>
         </properties>
       </component>
     </children>
