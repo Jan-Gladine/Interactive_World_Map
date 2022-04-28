@@ -20,19 +20,14 @@ public class Main {
         IOReader map = new IOReader("Map1.csv");
         while (true) {
             ArrayList<String> newCombobox = new ArrayList<>();
-            ArrayList<Double> mapCoordinates = new ArrayList<>();
             for (Student student : map.getStudents()) {
                 if (Objects.equals(input.getOutput2(), student.getCourse())) {
-                    mapCoordinates.add(student.getCoordinates()[0]);
-                    mapCoordinates.add(student.getCoordinates()[1]);
+                    mapFrame.setPin(student.getCoordinates()[0],student.getCoordinates()[1]);
                     newCombobox.add(student.getName());
                 }
             }
             if (input.isInputReceived()) {
                 input.setSecondCombobox(newCombobox);
-            }
-            for (int i = 0; i < mapCoordinates.size()/2; i++) {
-                mapFrame.setPin(mapCoordinates.get(i * 2), mapCoordinates.get(i * 2 + 1));
             }
             mapFrame.render();
         }
