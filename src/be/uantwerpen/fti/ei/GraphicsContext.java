@@ -46,8 +46,8 @@ public class GraphicsContext {
     }
 
     public GraphicsContext() {
-        ScreenWidth = 1920;
-        ScreenHeight = 1080;
+        ScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        ScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         frame = new JFrame();
         panel = new JPanel(true) {
             @Override
@@ -73,7 +73,6 @@ public class GraphicsContext {
     }
     public void setPin(int x, int y){
         g2d.drawImage(pinImg,x,y,null);
-        g2d.dispose();
     }
     private void doDrawing(Graphics g) {
         Graphics2D graph2d = (Graphics2D) g;

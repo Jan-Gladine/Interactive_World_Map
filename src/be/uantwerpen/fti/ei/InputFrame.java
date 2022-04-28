@@ -1,10 +1,13 @@
 package be.uantwerpen.fti.ei;
 
 import javax.swing.*;
+import javax.swing.event.ListDataListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class InputFrame extends JFrame {
     private JLabel txtLabel;
@@ -12,8 +15,11 @@ public class InputFrame extends JFrame {
     private JButton enterButton;
     private JPanel Panel;
     private JComboBox comboBox1;
+    private JComboBox comboBox2;
     private String output1;
     private String output2;
+    private ArrayList<String> comboBox2Inputs;
+    private boolean inputReceived = false;
 
     public InputFrame(){
         setContentPane(Panel);
@@ -29,7 +35,16 @@ public class InputFrame extends JFrame {
         comboBox1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                output2 = comboBox1.getSelectedItem().toString();
+                output2 = Objects.requireNonNull(comboBox1.getSelectedItem()).toString();
+                comboBox2.removeAllItems();
+                inputReceived = true;
+            }
+        });
+
+        comboBox2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
 
@@ -41,6 +56,17 @@ public class InputFrame extends JFrame {
         });
     }
 
+
+    public boolean isInputReceived() {
+        return inputReceived;
+    }
+
+    public void setSecondCombobox(ArrayList<String> a){
+        for (String text: a){
+            comboBox2.addItem(text);
+        }
+        inputReceived = false;
+    }
     public String getOutput1() {
         return output1;
     }

@@ -8,35 +8,33 @@ import java.util.Objects;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<Pin> pins = new ArrayList<>();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
         InputFrame input = new InputFrame();
         DisplayFrame display = new DisplayFrame();
-        Map mapFrame = new Map(1920,1080);
-        mapFrame.grCtx.setGameDimensions(1920,1080);
-        pins.add(new Pin(4,51, mapFrame.grCtx));
-        pins.add(new Pin(4,70, mapFrame.grCtx));
-        pins.add(new Pin(4,30, mapFrame.grCtx));
-        pins.add(new Pin(20,30, mapFrame.grCtx));
-        pins.add(new Pin(0,0, mapFrame.grCtx));
+        Map mapFrame = new Map(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+        mapFrame.grCtx.setGameDimensions(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
 
-        gs[0].setFullScreenWindow(input);
-        //gs[1].setFullScreenWindow(mapFrame);
+        //gs[1].setFullScreenWindow(input);
 
         IOReader map = new IOReader("Map1.csv");
-        while (true){
-            StringBuilder outputString = new StringBuilder();
-//            for(Student student :map.getStudents()){
-//                if (Objects.equals(input.getOutput2(), student.getCourse())){
-//                    mapFrame.setPin(student.getCoordinates()[0], student.getCoordinates()[1]);
-//                }
-//            }
-            for (Pin pin:pins){
-                pin.draw();
+        while (true) {
+            ArrayList<String> newCombobox = new ArrayList<>();
+            ArrayList<Double> mapCoordinates = new ArrayList<>();
+            for (Student student : map.getStudents()) {
+                if (Objects.equals(input.getOutput2(), student.getCourse())) {
+                    mapCoordinates.add(student.getCoordinates()[0]);
+                    mapCoordinates.add(student.getCoordinates()[1]);
+                    newCombobox.add(student.getName());
+                }
+            }
+            if (input.isInputReceived()) {
+                input.setSecondCombobox(newCombobox);
+            }
+            for (int i = 0; i < mapCoordinates.size()/2; i++) {
+                mapFrame.setPin(mapCoordinates.get(i * 2), mapCoordinates.get(i * 2 + 1));
             }
             mapFrame.render();
-            display.setInput(String.valueOf(outputString));
         }
     }
 }
