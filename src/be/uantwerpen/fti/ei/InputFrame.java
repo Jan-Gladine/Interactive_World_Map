@@ -17,7 +17,7 @@ public class InputFrame extends JFrame {
     private JComboBox comboBox1;
     private JComboBox comboBox2;
     private String output1;
-    private String output2;
+    private String output2 = "None";
     private ArrayList<String> comboBox2Inputs;
     private boolean inputReceived = false;
 
@@ -26,16 +26,10 @@ public class InputFrame extends JFrame {
         setSize(450, 300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-        enterButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                output1 = textField1.getText();
-            }
-        });
         comboBox1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                output2 = Objects.requireNonNull(comboBox1.getSelectedItem()).toString();
+                output1 = Objects.requireNonNull(comboBox1.getSelectedItem()).toString();
                 comboBox2.removeAllItems();
                 inputReceived = true;
             }
@@ -44,14 +38,9 @@ public class InputFrame extends JFrame {
         comboBox2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        enterButton.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
+                if (comboBox2.getSelectedItem() != null) {
+                    output2 = Objects.requireNonNull(comboBox2.getSelectedItem()).toString();
+                }
             }
         });
     }
@@ -62,6 +51,7 @@ public class InputFrame extends JFrame {
     }
 
     public void setSecondCombobox(ArrayList<String> a){
+        comboBox2.addItem("All");
         for (String text: a){
             comboBox2.addItem(text);
         }
