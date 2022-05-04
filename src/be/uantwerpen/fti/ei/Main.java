@@ -14,11 +14,12 @@ public class Main {
         InputFrame input = new InputFrame();
         Map mapFrame = new Map(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         mapFrame.grCtx.setGameDimensions(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+        //gs[0].setFullScreenWindow(input);
 
-        gs[0].setFullScreenWindow(input);
 
         IOReader map = new IOReader("resource/2022.map/locations3.csv");
         while (true) {
+            mapFrame.setPin(0,0);
             ArrayList<String> newCombobox = new ArrayList<>();
             for (Location location : map.getStudents()) {
                 if (Objects.equals(input.getOutput1(), location.getStudy())) {

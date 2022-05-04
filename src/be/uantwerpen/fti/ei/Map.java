@@ -1,5 +1,7 @@
 package be.uantwerpen.fti.ei;
 
+import java.awt.*;
+
 public class Map {
     public GraphicsContext grCtx;
     private int WindowWidth;
@@ -7,6 +9,8 @@ public class Map {
     private int PinWidth;
     private int PinHeight;
     private double R = 1450 /(2*180);
+    private final double scaleFactorX = (double) (Toolkit.getDefaultToolkit().getScreenSize().width)/1920;
+    private final double scaleFactorY = (double) (Toolkit.getDefaultToolkit().getScreenSize().height)/1080;
 
     public Map(int Width, int Height) {
         this.WindowWidth = Width;
@@ -18,7 +22,7 @@ public class Map {
         grCtx.render();
     }
     void setPin(double lengtegraad,double breedtegraad){
-        grCtx.setPin(TransformX(lengtegraad),TransformY(breedtegraad));
+        grCtx.setPin((int) (TransformX(lengtegraad)*scaleFactorX),(int) (TransformY(breedtegraad)*scaleFactorY));
         //grCtx.setPin(725,500);
     }
     int TransformX(double lengtegraad){
