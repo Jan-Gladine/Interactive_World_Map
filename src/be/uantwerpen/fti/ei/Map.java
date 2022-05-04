@@ -1,8 +1,5 @@
 package be.uantwerpen.fti.ei;
 
-import javax.swing.*;
-
-//beeld = 1500 x 800
 public class Map {
     public GraphicsContext grCtx;
     private int WindowWidth;
@@ -25,7 +22,7 @@ public class Map {
         //grCtx.setPin(725,500);
     }
     int TransformX(double lengtegraad){
-        int x_co = (int)(R*(180+lengtegraad));
+        int x_co = (int)(725 + 3.733*lengtegraad - 0.0003181*Math.pow(lengtegraad,2) + 0.000008314*Math.pow(lengtegraad,3) + 0.00000004178*Math.pow(lengtegraad,4)-0.000000001205*Math.pow(lengtegraad,5));
         System.out.println("x:" +x_co);
         return x_co;
     }

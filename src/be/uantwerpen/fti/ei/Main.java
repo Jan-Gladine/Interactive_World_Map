@@ -2,12 +2,13 @@ package be.uantwerpen.fti.ei;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
         InputFrame input = new InputFrame();
@@ -19,14 +20,16 @@ public class Main {
         IOReader map = new IOReader("resource/2022.map/locations3.csv");
         while (true) {
             ArrayList<String> newCombobox = new ArrayList<>();
-            for (Location student : map.getStudents()) {
-                if (Objects.equals(input.getOutput1(), student.getStudy())) {
+            for (Location location : map.getStudents()) {
+                if (Objects.equals(input.getOutput1(), location.getStudy())) {
                     if (Objects.equals("All", input.getOutput2())){
-                        mapFrame.setPin(student.getCoordinates()[0],student.getCoordinates()[1]);
-                    }else if(Objects.equals(input.getOutput2(), student.getUniversity())){
-                        mapFrame.setPin(student.getCoordinates()[0],student.getCoordinates()[1]);
+                        mapFrame.setPin(location.getCoordinates()[0],location.getCoordinates()[1]);
+                        input.clearInfo();
+                    }else if(Objects.equals(input.getOutput2(), location.getUniversity())){
+                        mapFrame.setPin(location.getCoordinates()[0],location.getCoordinates()[1]);
+                        input.setInfo(location.info());
                     }
-                    newCombobox.add(student.getUniversity());
+                    newCombobox.add(location.getUniversity());
                 }
             }
             if (input.isInputReceived()) {
