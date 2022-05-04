@@ -16,11 +16,11 @@ public class Main {
 
         gs[0].setFullScreenWindow(input);
 
-        IOReader map = new IOReader("Map1.csv");
+        IOReader map = new IOReader("resource/2022.map/locations3.csv");
         while (true) {
             ArrayList<String> newCombobox = new ArrayList<>();
-            for (Student student : map.getStudents()) {
-                if (Objects.equals(input.getOutput1(), student.getCourse())) {
+            for (Location student : map.getStudents()) {
+                if (Objects.equals(input.getOutput1(), student.getStudy())) {
                     if (Objects.equals("All", input.getOutput2())){
                         mapFrame.setPin(student.getCoordinates()[0],student.getCoordinates()[1]);
                     }else if(Objects.equals(input.getOutput2(), student.getUniversity())){
@@ -33,7 +33,6 @@ public class Main {
                 input.setSecondCombobox(newCombobox);
             }
             mapFrame.render();
-            Thread.sleep(10);
         }
     }
 }

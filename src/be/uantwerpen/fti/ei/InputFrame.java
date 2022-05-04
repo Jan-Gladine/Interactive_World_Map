@@ -10,15 +10,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class InputFrame extends JFrame {
-    private JLabel txtLabel;
-    private JTextField textField1;
-    private JButton enterButton;
     private JPanel Panel;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
+    private JLabel info;
     private String output1;
     private String output2 = "None";
-    private ArrayList<String> comboBox2Inputs;
     private boolean inputReceived = false;
 
     public InputFrame(){

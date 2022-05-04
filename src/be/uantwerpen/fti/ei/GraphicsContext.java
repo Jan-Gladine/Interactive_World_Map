@@ -66,6 +66,7 @@ public class GraphicsContext {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.createBufferStrategy(2);
     }
 
     public void render() {
@@ -98,7 +99,5 @@ public class GraphicsContext {
         g2dimage = new BufferedImage(frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_4BYTE_ABGR_PRE);
         g2d = g2dimage.createGraphics();
         g2d.drawImage(backgroundImg,0, 0, null);
-        g2d.setColor(Color.BLACK);
-        g2d.fill(new Rectangle(1780, 1000, 140, 80));
     }
 }
