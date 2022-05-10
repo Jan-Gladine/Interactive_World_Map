@@ -1,9 +1,6 @@
 package be.uantwerpen.fti.ei;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -11,7 +8,8 @@ public class InputFrame extends JFrame {
     private JPanel Panel;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
-    private JLabel info;
+    private JTextArea info;
+    private JPanel picture;
     private String output1;
     private String output2 = "None";
     private boolean inputReceived = false;
@@ -36,9 +34,10 @@ public class InputFrame extends JFrame {
 
     public void setInfo(String infoText){
         info.setText(infoText);
+        info.setVisible(true);
     }
     public void clearInfo(){
-        info.setText("");
+        info.setVisible(false);
     }
     public boolean isInputReceived() {
         return inputReceived;
