@@ -9,6 +9,7 @@ public class InputFrame extends JFrame {
     private JComboBox comboBox1;
     private JComboBox comboBox2;
     private JTextArea info;
+    private JLabel image;
     private JPanel picture;
     private String output1;
     private String output2 = "None";
@@ -49,6 +50,16 @@ public class InputFrame extends JFrame {
             comboBox2.addItem(text);
         }
         inputReceived = false;
+    }
+    public void placeImage(String name){
+        String filename = "resource/2022.map/" + name;
+        ImageIcon picture = new ImageIcon(filename);
+        image.setIcon(picture);
+        image.setVisible(true);
+    }
+
+    public void clearImage(){
+        image.setVisible(false);
     }
     public String getOutput1() {
         return output1;

@@ -14,7 +14,7 @@ public class Main {
         InputFrame input = new InputFrame();
         Map mapFrame = new Map(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         mapFrame.grCtx.setGameDimensions(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
-        //gs[0].setFullScreenWindow(input);
+        gs[0].setFullScreenWindow(input);
 
 
         IOReader map = new IOReader("resource/2022.map/locations3.csv");
@@ -25,10 +25,12 @@ public class Main {
                 if (Objects.equals(input.getOutput1(), location.getStudy())) {
                     if (Objects.equals("All", input.getOutput2())){
                         mapFrame.setPin(location.getCoordinates()[1],location.getCoordinates()[0]);
+                        input.clearImage();
                         input.clearInfo();
                     }else if(Objects.equals(input.getOutput2(), location.getUniversity())){
                         mapFrame.setPin(location.getCoordinates()[1],location.getCoordinates()[0]);
                         input.setInfo(location.info());
+                        input.placeImage(location.getPic());
                     }
                     newCombobox.add(location.getUniversity());
                 }
