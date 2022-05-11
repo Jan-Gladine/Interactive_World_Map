@@ -37,7 +37,7 @@ public class Main {
                 input.clearInfo();
                 input.clearImage();
             }
-            if (input.isInputReceived()) {
+            if (input.isInputReceived()|input.isBuffered()) {
                 input.setSecondCombobox(newCombobox);
             }
             mapFrame.render();

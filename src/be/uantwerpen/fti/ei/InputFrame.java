@@ -16,7 +16,7 @@ public class InputFrame extends JFrame {
     private JComboBox comboBox2;
     private JTextArea info;
     private JLabel image;
-    private JPanel picture;
+    private boolean buffer;
     private String output1;
     private String output2 = "None";
     private boolean inputReceived = false;
@@ -55,6 +55,12 @@ public class InputFrame extends JFrame {
         for (String text: a){
             comboBox2.addItem(text);
         }
+        if (inputReceived){
+            buffer = true;
+            comboBox2.removeAllItems();
+        }else {
+            buffer = false;
+        }
         inputReceived = false;
     }
     public void placeImage(String name) throws IOException {
@@ -86,4 +92,7 @@ public class InputFrame extends JFrame {
         return output2;
     }
 
+    public boolean isBuffered() {
+        return buffer;
+    }
 }
