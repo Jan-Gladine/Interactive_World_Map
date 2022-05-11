@@ -1,14 +1,13 @@
 package be.uantwerpen.fti.ei;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
         InputFrame input = new InputFrame();
@@ -19,7 +18,6 @@ public class Main {
 
         IOReader map = new IOReader("resource/2022.map/locations3.csv");
         while (true) {
-            //mapFrame.setPin(0,0);
             ArrayList<String> newCombobox = new ArrayList<>();
             for (Location location : map.getStudents()) {
                 if (Objects.equals(input.getOutput1(), location.getStudy())) {
@@ -34,6 +32,10 @@ public class Main {
                     }
                     newCombobox.add(location.getUniversity());
                 }
+            }
+            if (newCombobox.size() == 0){
+                input.clearInfo();
+                input.clearImage();
             }
             if (input.isInputReceived()) {
                 input.setSecondCombobox(newCombobox);

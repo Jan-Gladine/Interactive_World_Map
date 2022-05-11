@@ -1,6 +1,12 @@
 package be.uantwerpen.fti.ei;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -51,11 +57,23 @@ public class InputFrame extends JFrame {
         }
         inputReceived = false;
     }
-    public void placeImage(String name){
+    public void placeImage(String name) throws IOException {
+        double scaleFactor;
         String filename = "resource/2022.map/" + name;
-        ImageIcon picture = new ImageIcon(filename);
+        BufferedImage originalPicture = ImageIO.read(new File(filename));
+        if (originalPicture.getHeight() > (Panel.getHeight()/1.3)){
+            scaleFactor = (Panel.getHeight()/1.3)/originalPicture.getHeight();
+        }else scaleFactor = 1;
+        ImageIcon picture = new ImageIcon(resizeImage(originalPicture, (int) Math.round(originalPicture.getWidth()*scaleFactor), (int) Math.round(originalPicture.getHeight()*scaleFactor)));
         image.setIcon(picture);
         image.setVisible(true);
+    }
+
+    public BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
+        Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, 1);
+        BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, 7);
+        outputImage.getGraphics().drawImage(resultingImage, 0, 0, (ImageObserver) null);
+        return outputImage;
     }
 
     public void clearImage(){

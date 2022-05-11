@@ -9,8 +9,8 @@ public class Map {
     private int PinWidth;
     private int PinHeight;
     private double R = 1450 /(2*180);
-    private final double scaleFactorX = (double) (Toolkit.getDefaultToolkit().getScreenSize().width)/1920;
-    private final double scaleFactorY = (double) (Toolkit.getDefaultToolkit().getScreenSize().height)/1080;
+    private final double scaleFactorX = (double) (Toolkit.getDefaultToolkit().getScreenSize().width)/1550;
+    private final double scaleFactorY = (double) (Toolkit.getDefaultToolkit().getScreenSize().height)/900;
 
     public Map(int Width, int Height) {
         this.WindowWidth = Width;
