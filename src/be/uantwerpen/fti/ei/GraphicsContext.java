@@ -18,15 +18,6 @@ public class GraphicsContext {
     public BufferedImage pinImg;
     private int size;                   // cel size
 
-    public Graphics2D getG2d() {
-        return g2d;
-    }
-    public JFrame getFrame() {
-        return frame;
-    }
-    public int getSize() {
-        return size;
-    }
 
     public BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight){
         Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
