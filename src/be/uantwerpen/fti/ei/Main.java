@@ -7,19 +7,20 @@ import java.util.Objects;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
         InputFrame input = new InputFrame();
-        Map mapFrame = new Map(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
-        mapFrame.grCtx.setGameDimensions(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+        Map mapFrame = new Map();
+        mapFrame.grCtx.InitGraphics();
         gs[0].setFullScreenWindow(input);
+        IOReader data = new IOReader("resource/2022.map/locations.csv");
 
 
-        IOReader map = new IOReader("resource/2022.map/locations3.csv");
         while (true) {
+            mapFrame.update();
             ArrayList<String> newCombobox = new ArrayList<>();
-            for (Location location : map.getStudents()) {
+            for (Location location : data.getStudents()) {
                 if (Objects.equals(input.getOutput1(), location.getStudy())) {
                     if (Objects.equals("All", input.getOutput2())){
                         mapFrame.setPin(location.getCoordinates()[1],location.getCoordinates()[0]);
@@ -33,14 +34,16 @@ public class Main {
                     newCombobox.add(location.getUniversity());
                 }
             }
+
             if (newCombobox.size() == 0){
                 input.clearInfo();
                 input.clearImage();
-            }
-            if (input.isInputReceived()|input.isBuffered()) {
+                input.removeButtons();
+            }else if (input.isInputReceived()|input.isBuffered()) {
                 input.setSecondCombobox(newCombobox);
             }
             mapFrame.render();
+            Thread.sleep(1);
         }
     }
 }

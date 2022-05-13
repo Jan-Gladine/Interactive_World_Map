@@ -3,6 +3,7 @@ package be.uantwerpen.fti.ei;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,13 +11,13 @@ import java.io.IOException;
 public class GraphicsContext {
     private int ScreenWidth;
     private int ScreenHeight;
+    private BufferStrategy strategy;
     private JFrame frame;
     private JPanel panel;
-    private BufferedImage g2dimage;     // used for drawing
+    private BufferedImage g2dImage;     // used for drawing
     private Graphics2D g2d;             // always draw in this one
     public BufferedImage backgroundImg;
     public BufferedImage pinImg;
-    private int size;                   // cel size
 
 
     public BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight){
@@ -40,16 +41,9 @@ public class GraphicsContext {
         ScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
         ScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         frame = new JFrame();
-        panel = new JPanel(true) {
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                doDrawing(g);
-            }
-        };
+        panel = (JPanel) frame.getContentPane();
+        panel.setIgnoreRepaint(true);
         frame.setUndecorated(true);
-        frame.setFocusable(true);
-        frame.add(panel);
         frame.setTitle("Interactive World Map");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(ScreenWidth, ScreenHeight);
@@ -58,26 +52,25 @@ public class GraphicsContext {
         frame.setVisible(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.createBufferStrategy(2);
+        strategy = frame.getBufferStrategy();
     }
 
     public void render() {
-        panel.repaint();
+        g2d.dispose();
+        strategy.show();
     }
+
+    public void update(){
+        g2d = (Graphics2D) strategy.getDrawGraphics();
+        g2d.drawImage(backgroundImg, 0,0, null);
+    }
+
     public void setPin(int x, int y){
         g2d.drawImage(pinImg,x,y,null);
     }
-    private void doDrawing(Graphics g) {
-        Graphics2D graph2d = (Graphics2D) g;
-        Toolkit.getDefaultToolkit().sync();
-        graph2d.drawImage(g2dimage, 0, 0, null);   // copy buffered image
-        graph2d.dispose();
-        if (g2d != null)
-            g2d.drawImage(backgroundImg,0, 0, null);
-    }
 
-    public void setGameDimensions(int GameCellsX, int GameCellsY) {
-        size = Math.min(ScreenWidth/GameCellsX, ScreenHeight/GameCellsY);
-        //System.out.println("size: "+size);
+
+    public void InitGraphics() {
         frame.setLocation(0,0);
         frame.setSize(ScreenWidth, ScreenHeight);
         loadImages();
@@ -87,8 +80,8 @@ public class GraphicsContext {
         } catch(Exception e) {
             System.out.println(e.getStackTrace());
         }
-        g2dimage = new BufferedImage(frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_4BYTE_ABGR_PRE);
-        g2d = g2dimage.createGraphics();
+        g2dImage = new BufferedImage(frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_4BYTE_ABGR_PRE);
+        g2d = g2dImage.createGraphics();
         g2d.drawImage(backgroundImg,0, 0, null);
     }
 }

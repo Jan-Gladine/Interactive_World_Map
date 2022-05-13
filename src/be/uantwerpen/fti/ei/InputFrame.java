@@ -16,12 +16,17 @@ public class InputFrame extends JFrame {
     private JComboBox comboBox2;
     private JTextArea info;
     private JLabel image;
+    private JButton vorigeButton;
+    private JButton volgendeButton;
     private boolean buffer;
     private String output1;
     private String output2 = "None";
+    private boolean isCleared = true;
     private boolean inputReceived = false;
 
     public InputFrame(){
+        vorigeButton.setVisible(false);
+        volgendeButton.setVisible(false);
         setContentPane(Panel);
         setSize(450, 300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -35,7 +40,20 @@ public class InputFrame extends JFrame {
         comboBox2.addActionListener(e -> {
             if (comboBox2.getSelectedItem() != null) {
                 output2 = Objects.requireNonNull(comboBox2.getSelectedItem()).toString();
+                volgendeButton.setVisible(true);
+                vorigeButton.setVisible(true);
             }
+        });
+
+        volgendeButton.addActionListener(e -> {
+            if (comboBox2.getSelectedIndex()+1 > comboBox2.getItemCount()-1){
+                comboBox2.setSelectedIndex(0);
+            } else comboBox2.setSelectedIndex(comboBox2.getSelectedIndex()+1);
+        });
+        vorigeButton.addActionListener(e -> {
+            if (comboBox2.getSelectedIndex()-1 < 0){
+                comboBox2.setSelectedIndex(comboBox2.getItemCount()-1);
+            } else comboBox2.setSelectedIndex(comboBox2.getSelectedIndex()-1);
         });
     }
 
@@ -51,6 +69,7 @@ public class InputFrame extends JFrame {
     }
 
     public void setSecondCombobox(ArrayList<String> a){
+        isCleared = false;
         comboBox2.addItem("All");
         for (String text: a){
             comboBox2.addItem(text);
@@ -63,6 +82,7 @@ public class InputFrame extends JFrame {
         }
         inputReceived = false;
     }
+
     public void placeImage(String name) throws IOException {
         double scaleFactor;
         String filename = "resource/2022.map/" + name;
@@ -80,6 +100,16 @@ public class InputFrame extends JFrame {
         BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, 7);
         outputImage.getGraphics().drawImage(resultingImage, 0, 0, (ImageObserver) null);
         return outputImage;
+    }
+
+    public void removeButtons(){
+        isCleared = true;
+        volgendeButton.setVisible(false);
+        vorigeButton.setVisible(false);
+    }
+
+    public boolean isCleared(){
+        return isCleared;
     }
 
     public void clearImage(){
