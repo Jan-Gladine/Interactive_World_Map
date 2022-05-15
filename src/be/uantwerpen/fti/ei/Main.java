@@ -9,10 +9,12 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        //haalt de aangesloten schermen op en maakt een lijst
         GraphicsDevice[] gs = ge.getScreenDevices();
         InputFrame input = new InputFrame();
         Map mapFrame = new Map();
         mapFrame.grCtx.InitGraphics();
+        //zet input scherm op fullscreen op scherm 0 (aangesloten scherm 1)
         gs[0].setFullScreenWindow(input);
         IOReader data = new IOReader("resource/2022.map/locations.csv");
 
